@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God Bless Shoes - Home</title>
+    <title>GodBless Shoes - Home</title>
     <style>
         /* Reset and Base */
         * {
@@ -426,7 +426,7 @@
             }
 
             .logo {
-                font-size: 1.4rem; /* Reduced size for fit */
+                font-size: 1.2rem; /* Adjusted smaller for better fit and space */
                 flex-shrink: 0;
                 z-index: 102;
                 order: 1;
@@ -452,8 +452,8 @@
                 position: fixed;
                 top: 0;
                 left: 0;
-                width: 40%; /* Reduced to 40% */
-                height: 100vh;
+                width: 50%; /* Increased to 50% */
+                height: 100vh; /* Full height for white background to bottom */
                 background: white;
                 flex-direction: column;
                 padding: 4rem 1.5rem 2rem; /* Adjusted for close button space */
@@ -461,7 +461,7 @@
                 transform: translateX(-100%);
                 transition: transform 0.3s ease-in-out;
                 gap: 0;
-                overflow-y: auto;
+                overflow: hidden; /* No overflow on container, handled by content wrapper */
                 z-index: 999; /* High z-index for full overlay */
                 display: flex;
                 list-style: none;
@@ -475,9 +475,11 @@
                 display: block;
             }
 
-            .nav-links ul {
+            .menu-content {
                 margin-top: 2rem;
                 flex: 1;
+                max-height: 60vh; /* Content limited to 60% from top */
+                overflow-y: auto;
                 list-style: none; /* Ensure no dots */
             }
 
@@ -497,6 +499,10 @@
                 margin-top: 1rem;
                 padding-top: 1rem;
                 border-top: 1px solid #eee;
+            }
+
+            .order-now-mobile a {
+                padding: 0.8rem 1rem; /* Retained rectangular padding without shrinking */
             }
 
             .nav-right {
@@ -556,20 +562,22 @@
         <nav class="nav">
             <div class="logo">
                 <img src="images/logo.png" alt="God Bless Shoes Logo">
-                God Bless Shoes
+                Godbless Shoes
             </div>
             <input type="search" id="search-input" class="search-input" placeholder="Search products...">
             <div class="nav-links">
                 <button class="menu-close" onclick="closeHamburger()">&times;</button>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li class="order-now-mobile">
-                        <a href="cart.html" class="cta-header">Order Now</a>
-                    </li>
-                </ul>
+                <div class="menu-content">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li class="order-now-mobile">
+                            <a href="cart.html" class="cta-header">Order Now</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="nav-right">
                 <div class="cart-container">

@@ -1,0 +1,766 @@
+<!-- about.html (About Page with Embedded CSS and JS - Updated with Founder Section) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God Bless Shoes - About</title>
+    <style>
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header/Nav */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 100;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8B4513;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 250px;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #8B4513;
+        }
+
+        .order-now-mobile {
+            display: none;
+        }
+
+        .order-now-mobile a {
+            display: block;
+            background: #8B4513;
+            color: white;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .order-now-mobile a:hover {
+            background: #A0522D;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-container {
+            position: relative;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #8B4513;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #A0522D;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 101;
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-dropdown.open {
+            display: block;
+        }
+
+        .dropdown-header {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .cart-item-mini {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-mini h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .cart-item-mini p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .qty-mini {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .qty-mini button {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .mini-total {
+            padding: 1rem;
+            text-align: right;
+            font-weight: 700;
+            color: #8B4513;
+        }
+
+        .cta-header {
+            background: #8B4513;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .cta-header:hover {
+            background: #A0522D;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #8B4513;
+        }
+
+        .menu-close {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 102;
+        }
+
+        /* Desktop-specific nav links horizontal styling */
+        @media (min-width: 769px) {
+            .menu-content ul {
+                display: flex;
+                list-style: none;
+                gap: 2rem;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .about h1, .about h2 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .about-img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        .about ul {
+            list-style: none;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        .about li {
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        /* Founder Section */
+        .founder {
+            padding: 4rem 0;
+            background: white;
+            margin: 3rem 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .founder-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .founder-img {
+            flex: 1;
+            max-width: 400px;
+            border-radius: 15px;
+            object-fit: cover;
+            height: 400px;
+        }
+
+        .founder-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .founder h2 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .founder p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section h3 img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #8B4513;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            color: #ccc;
+        }
+
+        /* Mobile - Only adjustments here, desktop/tablet unchanged */
+        @media (max-width: 768px) {
+            .nav {
+                position: relative;
+                padding: 0 1rem; /* Reduced padding for more space */
+            }
+
+            .logo {
+                font-size: 1.2rem; /* Adjusted smaller for better fit and space */
+                flex-shrink: 0;
+                z-index: 102;
+                order: 1;
+            }
+
+            .logo img {
+                width: 25px;
+                height: 25px;
+            }
+
+            .search-input {
+                order: 2;
+                flex-basis: 100%;
+                width: 100%;
+                max-width: none;
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
+                padding: 0.4rem 0.8rem; /* Smaller padding */
+                font-size: 0.9rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 50%; /* Increased to 50% */
+                height: 100vh; /* Full height for white background to bottom */
+                background: white;
+                flex-direction: column;
+                padding: 4rem 1.5rem 2rem; /* Adjusted for close button space */
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                gap: 0;
+                overflow: hidden; /* No overflow on container, handled by content wrapper */
+                z-index: 999; /* High z-index for full overlay */
+                display: flex;
+                list-style: none;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links.active .menu-close {
+                display: block;
+            }
+
+            .menu-content {
+                margin-top: 2rem;
+                flex: 1;
+                max-height: 60vh; /* Content limited to 60% from top */
+                overflow-y: auto;
+                list-style: none; /* Ensure no dots */
+            }
+
+            .nav-links li {
+                padding: 0.5rem 0;
+                list-style: none; /* No dots */
+            }
+
+            .nav-links li a {
+                font-size: 1.1rem;
+                padding: 0.5rem;
+                display: block;
+            }
+
+            .order-now-mobile {
+                display: block;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid #eee;
+            }
+
+            .order-now-mobile a {
+                padding: 0.8rem 1rem; /* Retained rectangular padding without shrinking */
+            }
+
+            .nav-right {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem; /* Smaller gap for tight fit */
+                z-index: 102;
+                margin-left: auto;
+                order: 3;
+            }
+
+            .cart-icon {
+                font-size: 1.3rem;
+            }
+
+            #order-now {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+                flex-shrink: 0;
+                font-size: 1.3rem;
+            }
+
+            /* Cart dropdown full-width in mobile to prevent hidden parts - Enhanced fix */
+            .cart-dropdown {
+                position: fixed !important;
+                top: 70px !important; /* Below header */
+                left: 0 !important;
+                right: 0 !important;
+                width: calc(100% - 2rem) !important;
+                margin: 0 1rem !important;
+                max-height: calc(100vh - 80px) !important;
+                z-index: 1000 !important;
+                border-radius: 10px !important;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+            }
+
+            /* Overlay: Hide cart and hamburger when menu active */
+            .nav-links.active ~ .nav-right {
+                display: none;
+            }
+
+            .founder-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .founder-text {
+                text-align: center;
+            }
+
+            .about ul {
+                width: 95%; /* Adjusted width to center and prevent shift */
+                margin: 2rem auto;
+                max-width: 400px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Nav -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="images/logo.png" alt="God Bless Shoes Logo">
+                Godbless Shoes
+            </div>
+            <input type="search" id="search-input" class="search-input" placeholder="Search products...">
+            <div class="nav-links">
+                <button class="menu-close" onclick="closeHamburger()">&times;</button>
+                <div class="menu-content">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li class="order-now-mobile">
+                            <a href="cart.html" class="cta-header">Order Now</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="cart-container">
+                    <div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-badge" style="display:none;">0</span></div>
+                    <div id="cart-dropdown" class="cart-dropdown">
+                        <div class="dropdown-header">
+                            <h4>Cart</h4>
+                            <button class="dropdown-close" onclick="closeCartDropdown()">&times;</button>
+                        </div>
+                        <div id="mini-cart-items"></div>
+                        <div id="mini-total" class="mini-total" style="display:none;">Total: ₦0</div>
+                        <a href="cart.html" class="cta-header" style="display:block; text-align:center; margin:1rem; padding:0.6rem 1.5rem;">View Full Cart</a>
+                    </div>
+                </div>
+                <a href="cart.html" id="order-now" class="cta-header">Order Now</a>
+                <div class="hamburger" onclick="toggleHamburger()">☰</div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h1>About God Bless Shoes</h1>
+            <p>Founded in 2025, God Bless Shoes is dedicated to crafting premium, authentic leather goods that blend timeless craftsmanship with modern style. Our shoes and belts are made from the finest full-grain leathers, sourced ethically and hand-stitched by artisans—for both men and women.</p>
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Artisan crafting leather" class="about-img">
+            <h2>Our Commitment</h2>
+            <ul>
+                <li>Sustainable sourcing</li>
+                <li>100% authentic leather</li>
+                <li>Lifetime craftsmanship guarantee</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="founder">
+        <div class="founder-container">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chidi Okafor, Founder of God Bless Shoes" class="founder-img">
+            <div class="founder-text">
+                <h2>Our Founder: Chidi Okafor</h2>
+                <p>Chidi Okafor learned the art of leather from his father in the bustling markets of Aba, where "made-to-last" wasn't a luxury—it was necessity. By his teens, he was mending neighbors' soles with scraps and stories, turning worn heels into something that could carry dreams a little further.</p>
+                <p>At 28, after a decade in finance that felt like walking on glass, Chidi traded spreadsheets for stitches. He founded God Bless Shoes in a modest shed, believing every pair should whisper resilience. Today, his hands still bear the calluses, and each design carries his quiet philosophy: true style endures, like faith in the face of rain.</p>
+                <p>Chidi's vision? Goods that bless the wearer—not just with elegance, but with the quiet strength to walk any path. From the first prototype to our latest collection, his touch lingers in every seam.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>
+                        <img src="images/logo.png" alt="God Bless Shoes Logo">
+                        God Bless Shoes
+                    </h3>
+                    <p>Crafted with love since 2025. Authentic leather for every step.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Care Tips</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@godblessshoes.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                    <p>Address: 123 Leather Lane, Style City, SC 12345</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 God Bless Shoes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Persistent Cart Functions
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            const badge = document.getElementById('cart-count');
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'block' : 'none';
+        }
+
+        function toggleCartDropdown() {
+            const dropdown = document.getElementById('cart-dropdown');
+            dropdown.classList.toggle('open');
+            if (dropdown.classList.contains('open')) {
+                renderMiniCart();
+                document.body.style.overflow = 'hidden'; // Lock scroll
+            } else {
+                document.body.style.overflow = ''; // Unlock scroll
+            }
+        }
+
+        function closeCartDropdown() {
+            document.getElementById('cart-dropdown').classList.remove('open');
+            document.body.style.overflow = ''; // Unlock scroll
+        }
+
+        function renderMiniCart() {
+            const itemsDiv = document.getElementById('mini-cart-items');
+            const totalDiv = document.getElementById('mini-total');
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                html += `
+                    <div class="cart-item-mini">
+                        <div>
+                            <h4>${item.name} (${item.size})</h4>
+                            <p>₦${item.price.toLocaleString()} x ${item.qty} = ₦${subtotal.toLocaleString()}</p>
+                            <div class="qty-mini">
+                                <button onclick="updateQtyMini(${index}, -1); event.stopPropagation();">-</button>
+                                <span>${item.qty}</span>
+                                <button onclick="updateQtyMini(${index}, 1); event.stopPropagation();">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            itemsDiv.innerHTML = html;
+            totalDiv.textContent = `Total: ₦${total.toLocaleString()}`;
+            totalDiv.style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        function updateQtyMini(index, delta) {
+            if (cart[index]) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+                const dropdown = document.getElementById('cart-dropdown');
+                if (dropdown.classList.contains('open')) {
+                    renderMiniCart();
+                }
+            }
+        }
+
+        function toggleHamburger() {
+            event.stopPropagation();
+            const menu = document.querySelector('.nav-links');
+            menu.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // Lock scroll for menu
+            } else {
+                document.body.style.overflow = ''; // Unlock
+            }
+        }
+
+        function closeHamburger() {
+            const menu = document.querySelector('.nav-links');
+            menu.classList.remove('active');
+            document.body.style.overflow = ''; // Unlock
+        }
+
+        // Close dropdown on outside click
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('cart-dropdown');
+            const icon = document.querySelector('.cart-icon');
+            if (!icon.contains(e.target) && !dropdown.contains(e.target)) {
+                closeCartDropdown();
+            }
+            // Close mobile menu on outside click
+            const menu = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+                closeHamburger();
+            }
+        });
+
+        // Init
+        updateCart();
+
+        // Search functionality: Redirect to shop.html on Enter key press
+        document.getElementById('search-input').addEventListener('keypress', function(e){
+            if(e.key === 'Enter'){
+                const term = this.value.trim().toLowerCase();
+                if(term) window.location = 'shop.html?search=' + encodeURIComponent(term);
+            }
+        });
+    </script>
+</body>
+</html>

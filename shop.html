@@ -1,0 +1,1529 @@
+<!-- shop.html (Shop Page with Embedded CSS and JS - Integrated Updates: Aligned Buttons, Search Bar, Persistent Cart, Modal Auto-Add on Size Click, Realistic US Sizes, Top Notification Bar for Adds/Updates) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God Bless Shoes - Shop</title>
+    <style>
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Notification Bar (Jumia-style top slide-down) */
+        .notification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #28a745;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            z-index: 1000;
+            display: none;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .notification.show {
+            display: block;
+            transform: translateY(0);
+        }
+
+        .notification-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .notification-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .notification-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Header/Nav */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 100;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8B4513;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 250px;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #8B4513;
+        }
+
+        .order-now-mobile {
+            display: none;
+        }
+
+        .order-now-mobile a {
+            display: block;
+            background: #8B4513;
+            color: white;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .order-now-mobile a:hover {
+            background: #A0522D;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-container {
+            position: relative;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #8B4513;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #A0522D;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 101;
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-dropdown.open {
+            display: block;
+        }
+
+        .dropdown-header {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .cart-item-mini {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-mini h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .cart-item-mini p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .qty-mini {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .qty-mini button {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .mini-total {
+            padding: 1rem;
+            text-align: right;
+            font-weight: 700;
+            color: #8B4513;
+        }
+
+        .cta-header {
+            background: #8B4513;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .cta-header:hover {
+            background: #A0522D;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #8B4513;
+        }
+
+        .menu-close {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 102;
+        }
+
+        /* Desktop-specific nav links horizontal styling */
+        @media (min-width: 769px) {
+            .menu-content ul {
+                display: flex;
+                list-style: none;
+                gap: 2rem;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        /* Shop Section */
+        .shop {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .shop h1 {
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin-bottom: 2rem;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+
+        .sub-filters {
+            display: none;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(250px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            opacity: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card.hidden {
+            display: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-card p {
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: #FFD700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .add-to-cart:hover {
+            background: #A0522D;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .modal h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+
+        .modal .price {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .modal .size-options {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            min-width: 40px;
+        }
+
+        .size-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .size-btn.selected {
+            background: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .quantity button {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-width: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section h3 img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #8B4513;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #555;
+            padding-top: 1rem;
+            color: #ccc;
+        }
+
+        /* Mobile - Only adjustments here, desktop/tablet unchanged */
+        @media (max-width: 768px) {
+            .nav {
+                position: relative;
+                padding: 0 1rem; /* Reduced padding for more space */
+            }
+
+            .logo {
+                font-size: 1.2rem; /* Adjusted smaller for better fit and space */
+                flex-shrink: 0;
+                z-index: 102;
+                order: 1;
+            }
+
+            .logo img {
+                width: 25px;
+                height: 25px;
+            }
+
+            .search-input {
+                order: 2;
+                flex-basis: 100%;
+                width: 100%;
+                max-width: none;
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
+                padding: 0.4rem 0.8rem; /* Smaller padding */
+                font-size: 0.9rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 50%; /* Increased to 50% */
+                height: 100vh; /* Full height for white background to bottom */
+                background: white;
+                flex-direction: column;
+                padding: 4rem 1.5rem 2rem; /* Adjusted for close button space */
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                gap: 0;
+                overflow: hidden; /* No overflow on container, handled by content wrapper */
+                z-index: 999; /* High z-index for full overlay */
+                display: flex;
+                list-style: none;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links.active .menu-close {
+                display: block;
+            }
+
+            .menu-content {
+                margin-top: 2rem;
+                flex: 1;
+                max-height: 60vh; /* Content limited to 60% from top */
+                overflow-y: auto;
+                list-style: none; /* Ensure no dots */
+            }
+
+            .nav-links li {
+                padding: 0.5rem 0;
+                list-style: none; /* No dots */
+            }
+
+            .nav-links li a {
+                font-size: 1.1rem;
+                padding: 0.5rem;
+                display: block;
+            }
+
+            .order-now-mobile {
+                display: block;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid #eee;
+            }
+
+            .order-now-mobile a {
+                padding: 0.8rem 1rem; /* Retained rectangular padding without shrinking */
+            }
+
+            .nav-right {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem; /* Smaller gap for tight fit */
+                z-index: 102;
+                margin-left: auto;
+                order: 3;
+            }
+
+            .cart-icon {
+                font-size: 1.3rem;
+            }
+
+            #order-now {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+                flex-shrink: 0;
+                font-size: 1.3rem;
+            }
+
+            /* Cart dropdown full-width in mobile to prevent hidden parts - Enhanced fix */
+            .cart-dropdown {
+                position: fixed !important;
+                top: 70px !important; /* Below header */
+                left: 0 !important;
+                right: 0 !important;
+                width: calc(100% - 2rem) !important;
+                margin: 0 1rem !important;
+                max-height: calc(100vh - 80px) !important;
+                z-index: 1000 !important;
+                border-radius: 10px !important;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+            }
+
+            /* Overlay: Hide cart and hamburger when menu active */
+            .nav-links.active ~ .nav-right {
+                display: none;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+
+            .notification-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .notification-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Bar -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <div class="notification-text" id="notification-text"></div>
+            <div class="notification-buttons">
+                <button class="notification-btn" onclick="continueShopping()">Continue Shopping</button>
+                <a href="cart.html" class="notification-btn">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header/Nav -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="images/logo.png" alt="God Bless Shoes Logo">
+                Godbless Shoes
+            </div>
+            <input type="search" id="search-input" class="search-input" placeholder="Search products...">
+            <div class="nav-links">
+                <button class="menu-close" onclick="closeHamburger()">&times;</button>
+                <div class="menu-content">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li class="order-now-mobile">
+                            <a href="cart.html" class="cta-header">Order Now</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="cart-container">
+                    <div class="cart-icon" onclick="toggleCartDropdown()">🛒<span id="cart-count" class="cart-badge" style="display:none;">0</span></div>
+                    <div id="cart-dropdown" class="cart-dropdown">
+                        <div class="dropdown-header">
+                            <h4>Cart</h4>
+                            <button class="dropdown-close" onclick="closeCartDropdown()">&times;</button>
+                        </div>
+                        <div id="mini-cart-items"></div>
+                        <div id="mini-total" class="mini-total" style="display:none;">Total: ₦0</div>
+                        <a href="cart.html" class="cta-header" style="display:block; text-align:center; margin:1rem; padding:0.6rem 1.5rem;">View Full Cart</a>
+                    </div>
+                </div>
+                <a href="cart.html" id="order-now" class="cta-header">Order Now</a>
+                <div class="hamburger" onclick="toggleHamburger()">☰</div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Shop Section -->
+    <section class="shop">
+        <div class="container">
+            <h1>Our Collection</h1>
+            <div class="filters">
+                <select id="main-filter" class="filter-select">
+                    <option>All Products</option>
+                    <option>Men</option>
+                    <option>Women</option>
+                </select>
+                <div id="sub-filters" class="sub-filters">
+                    <select id="sub-filter" class="filter-select">
+                        <!-- Options populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="product-grid" id="product-grid">
+                <!-- Men's Shoes (10) -->
+                <div class="product-card men shoes" data-name="Men's Classic Oxford" data-price="45000">
+                    <img src="https://images.unsplash.com/photo-1658837407083-308b902ee99d" alt="Men's Classic Oxford">
+                    <h3>Men's Classic Oxford</h3>
+                    <p>Premium full-grain leather oxford for timeless style.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦45,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Brogue Shoes" data-price="52000">
+                    <img src="https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16" alt="Men's Brogue Shoes">
+                    <h3>Men's Brogue Shoes</h3>
+                    <p>Perforated leather brogues with classic detailing.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦52,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Leather Derby" data-price="38000">
+                    <img src="https://images.unsplash.com/photo-1616663308968-58162d332720" alt="Men's Leather Derby">
+                    <h3>Men's Leather Derby</h3>
+                    <p>Blucher-style derbies in supple calf leather.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦38,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Chelsea Boots" data-price="48000">
+                    <img src="https://plus.unsplash.com/premium_photo-1723662148369-3dd7abaf0566" alt="Men's Chelsea Boots">
+                    <h3>Men's Chelsea Boots</h3>
+                    <p>Elastic-sided leather Chelsea boots for easy wear.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦48,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Monk Strap" data-price="55000">
+                    <img src="https://images.unsplash.com/photo-1617689563472-c66428e83d17" alt="Men's Monk Strap">
+                    <h3>Men's Monk Strap</h3>
+                    <p>Buckled monk strap shoes in polished leather.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦55,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Wingtip Oxford" data-price="42000">
+                    <img src="https://images.unsplash.com/photo-1632561742737-ab007df44013" alt="Men's Wingtip Oxford">
+                    <h3>Men's Wingtip Oxford</h3>
+                    <p>Medallion wingtip oxfords for formal occasions.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦42,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Chukka Boots" data-price="36000">
+                    <img src="https://images.unsplash.com/photo-1610302594503-d334103e09ac" alt="Men's Chukka Boots">
+                    <h3>Men's Chukka Boots</h3>
+                    <p>Desert-style chukka boots in rugged leather.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦36,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Cap Toe" data-price="51000">
+                    <img src="https://plus.unsplash.com/premium_photo-1670984281009-863453504c52" alt="Men's Cap Toe">
+                    <h3>Men's Cap Toe</h3>
+                    <p>Cap toe derbies with subtle toe cap design.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦51,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Plain Toe" data-price="39000">
+                    <img src="https://images.unsplash.com/photo-1673332655640-d97338b1c6b7" alt="Men's Plain Toe">
+                    <h3>Men's Plain Toe</h3>
+                    <p>Sleek plain toe bluchers for modern elegance.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦39,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men shoes" data-name="Men's Double Monk" data-price="47000">
+                    <img src="https://images.unsplash.com/photo-1657032009797-9de33ac92ab8" alt="Men's Double Monk">
+                    <h3>Men's Double Monk</h3>
+                    <p>Double buckle monk straps in rich leather.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦47,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+
+                <!-- Men's Half Shoes (10) -->
+                <div class="product-card men halfshoes" data-name="Men's Penny Loafer" data-price="34000">
+                    <img src="https://plus.unsplash.com/premium_photo-1763400136656-30707eaa1910" alt="Men's Penny Loafer">
+                    <h3>Men's Penny Loafer</h3>
+                    <p>Classic penny slot loafers in soft leather.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦34,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Tassel Loafer" data-price="43000">
+                    <img src="https://images.unsplash.com/photo-1616406432452-07bc5938759d" alt="Men's Tassel Loafer">
+                    <h3>Men's Tassel Loafer</h3>
+                    <p>Tassel-accented loafers for casual sophistication.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦43,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Leather Moccasin" data-price="50000">
+                    <img src="https://images.unsplash.com/photo-1673675270277-95e45ee5d2e8" alt="Men's Leather Moccasin">
+                    <h3>Men's Leather Moccasin</h3>
+                    <p>Hand-stitched moccasins in genuine leather.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦50,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Boat Shoe" data-price="31000">
+                    <img src="https://images.unsplash.com/photo-1576792741377-eb0f4f6d1a47" alt="Men's Boat Shoe">
+                    <h3>Men's Boat Shoe</h3>
+                    <p>Leather boat shoes with rope detailing.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦31,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Slip-on" data-price="37000">
+                    <img src="https://plus.unsplash.com/premium_photo-1723618821228-ea6c157fce02" alt="Men's Slip-on">
+                    <h3>Men's Slip-on</h3>
+                    <p>Effortless leather slip-ons for everyday.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦37,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Venetian Loafer" data-price="54000">
+                    <img src="https://images.unsplash.com/photo-1760616172899-0681b97a2de3" alt="Men's Venetian Loafer">
+                    <h3>Men's Venetian Loafer</h3>
+                    <p>Minimalist Venetian loafers in fine leather.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦54,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Driving Shoe" data-price="32000">
+                    <img src="https://images.unsplash.com/photo-1621703730619-14efc794f8de" alt="Men's Driving Shoe">
+                    <h3>Men's Driving Shoe</h3>
+                    <p>Soft leather driving mocs with pebble soles.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦32,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Casual Loafer" data-price="41000">
+                    <img src="https://images.unsplash.com/photo-1563434194539-fcc823f9bf92" alt="Men's Casual Loafer">
+                    <h3>Men's Casual Loafer</h3>
+                    <p>Relaxed leather loafers for weekend wear.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦41,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Leather Loafer" data-price="49000">
+                    <img src="https://plus.unsplash.com/premium_photo-1744492013902-ebcab18175e4" alt="Men's Leather Loafer">
+                    <h3>Men's Leather Loafer</h3>
+                    <p>Textured leather loafers with modern edge.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦49,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men halfshoes" data-name="Men's Moc Toe Loafer" data-price="35000">
+                    <img src="https://images.unsplash.com/photo-1608629601270-a0007becead3" alt="Men's Moc Toe Loafer">
+                    <h3>Men's Moc Toe Loafer</h3>
+                    <p>Moc-toe loafers in durable leather.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦35,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+
+                <!-- Men's Belts (6) -->
+                <div class="product-card men belts" data-name="Men's Classic Belt" data-price="30000">
+                    <img src="https://plus.unsplash.com/premium_photo-1726769202190-ad2a3f2f360b" alt="Men's Classic Belt">
+                    <h3>Men's Classic Belt</h3>
+                    <p>Timeless single-prong leather belt.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦30,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men belts" data-name="Men's Reversible Belt" data-price="42000">
+                    <img src="https://images.unsplash.com/photo-1664286022075-8e997e95bd17" alt="Men's Reversible Belt">
+                    <h3>Men's Reversible Belt</h3>
+                    <p>Two-tone reversible leather belt.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦42,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men belts" data-name="Men's Braided Belt" data-price="55000">
+                    <img src="https://images.unsplash.com/photo-1684510334550-0c4fa8aaffd1" alt="Men's Braided Belt">
+                    <h3>Men's Braided Belt</h3>
+                    <p>Braided leather for textured appeal.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦55,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men belts" data-name="Men's Dress Belt" data-price="38000">
+                    <img src="https://images.unsplash.com/photo-1664286074240-d7059e004dff" alt="Men's Dress Belt">
+                    <h3>Men's Dress Belt</h3>
+                    <p>Polished dress belt for suits.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦38,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men belts" data-name="Men's Casual Belt" data-price="31000">
+                    <img src="https://plus.unsplash.com/premium_photo-1723759216675-e028ee98eb57" alt="Men's Casual Belt">
+                    <h3>Men's Casual Belt</h3>
+                    <p>Everyday casual leather belt.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦31,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card men belts" data-name="Men's Western Belt" data-price="53000">
+                    <img src="https://images.unsplash.com/photo-1664286021284-e921c76ac1a4" alt="Men's Western Belt">
+                    <h3>Men's Western Belt</h3>
+                    <p>Western-style with oversized buckle.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦53,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+
+                <!-- Women's Shoes (10) -->
+                <div class="product-card women shoes" data-name="Women's Pump" data-price="44000">
+                    <img src="https://images.unsplash.com/photo-1621996659490-3275b4d0d951" alt="Women's Pump">
+                    <h3>Women's Pump</h3>
+                    <p>Sleek pointed-toe leather pumps.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦44,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Half Shoe" data-price="37000">
+                    <img src="https://images.unsplash.com/photo-1758542988948-b95a6c4aa68b" alt="Women's Half Shoe">
+                    <h3>Women's Half Shoe</h3>
+                    <p>Versatile leather half shoes for day.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦37,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Ankle Boots" data-price="51000">
+                    <img src="https://images.unsplash.com/photo-1663693586817-f7e0ceb27bd7" alt="Women's Ankle Boots">
+                    <h3>Women's Ankle Boots</h3>
+                    <p>Chic leather ankle boots with zipper.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦51,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Leather Flats" data-price="32000">
+                    <img src="https://images.unsplash.com/photo-1761511110765-7c26f5412ebd" alt="Women's Leather Flats">
+                    <h3>Women's Leather Flats</h3>
+                    <p>Comfortable ballet flats in leather.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦32,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Leather Sandals" data-price="41000">
+                    <img src="https://images.unsplash.com/photo-1685527012908-394504c2a230" alt="Women's Leather Sandals">
+                    <h3>Women's Leather Sandals</h3>
+                    <p>Open-toe leather sandals for summer.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦41,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Wedge Heels" data-price="49000">
+                    <img src="https://images.unsplash.com/photo-1750032607523-0eb7857fac36" alt="Women's Wedge Heels">
+                    <h3>Women's Wedge Heels</h3>
+                    <p>Leather wedge heels for height and comfort.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦49,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Ballet Flats" data-price="36000">
+                    <img src="https://images.unsplash.com/photo-1750032627171-6af2b5765b98" alt="Women's Ballet Flats">
+                    <h3>Women's Ballet Flats</h3>
+                    <p>Delicate leather ballet flats.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦36,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Mary Janes" data-price="53000">
+                    <img src="https://images.unsplash.com/photo-1750032627176-e7638a50efc2" alt="Women's Mary Janes">
+                    <h3>Women's Mary Janes</h3>
+                    <p>Strappy Mary Jane leather shoes.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦53,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Kitten Heels" data-price="34000">
+                    <img src="https://images.unsplash.com/photo-1750032627218-b6b5ae6b0411" alt="Women's Kitten Heels">
+                    <h3>Women's Kitten Heels</h3>
+                    <p>Low kitten heel leather pumps.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦34,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women shoes" data-name="Women's Loafers" data-price="45000">
+                    <img src="https://images.unsplash.com/photo-1490243248048-8a68b3b77805" alt="Women's Loafers">
+                    <h3>Women's Loafers</h3>
+                    <p>Feminine leather loafers with bow.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦45,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+
+                <!-- Women's Belts (10) -->
+                <div class="product-card women belts" data-name="Women's Thin Belt" data-price="30000">
+                    <img src="https://plus.unsplash.com/premium_photo-1682146001259-46e7fe31aa48" alt="Women's Thin Belt">
+                    <h3>Women's Thin Belt</h3>
+                    <p>Slender leather belt for dresses.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦30,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Wide Belt" data-price="52000">
+                    <img src="https://images.unsplash.com/photo-1734383524180-3c6f9b21e8e3" alt="Women's Wide Belt">
+                    <h3>Women's Wide Belt</h3>
+                    <p>Bold wide leather cinch belt.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦52,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Reversible Belt" data-price="35000">
+                    <img src="https://images.unsplash.com/photo-1664285612706-b32633c95820" alt="Women's Reversible Belt">
+                    <h3>Women's Reversible Belt</h3>
+                    <p>Versatile reversible leather option.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦35,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Chain Belt" data-price="48000">
+                    <img src="https://images.unsplash.com/photo-1664286021284-e921c76ac1a4" alt="Women's Chain Belt">
+                    <h3>Women's Chain Belt</h3>
+                    <p>Leather with chain accents.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦48,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Braided Belt" data-price="31000">
+                    <img src="https://plus.unsplash.com/premium_photo-1726769202190-ad2a3f2f360b" alt="Women's Braided Belt">
+                    <h3>Women's Braided Belt</h3>
+                    <p>Braided leather for boho vibe.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦31,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Statement Belt" data-price="54000">
+                    <img src="https://images.unsplash.com/photo-1664286074240-d7059e004dff" alt="Women's Statement Belt">
+                    <h3>Women's Statement Belt</h3>
+                    <p>Oversized buckle statement piece.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦54,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Cinch Belt" data-price="33000">
+                    <img src="https://images.unsplash.com/photo-1649860359778-0bb95cb88ea9" alt="Women's Cinch Belt">
+                    <h3>Women's Cinch Belt</h3>
+                    <p>Adjustable cinch for perfect fit.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦33,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Leather Cord" data-price="46000">
+                    <img src="https://images.unsplash.com/photo-1752386296085-fd15d8b46ee7" alt="Women's Leather Cord">
+                    <h3>Women's Leather Cord</h3>
+                    <p>Thin cord-style leather belt.</p>
+                    <div class="stars">★★★☆☆</div>
+                    <div class="price">₦46,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Buckle Belt" data-price="40000">
+                    <img src="https://plus.unsplash.com/premium_photo-1695908427195-d23eed1feffe" alt="Women's Buckle Belt">
+                    <h3>Women's Buckle Belt</h3>
+                    <p>Decorative buckle leather belt.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">₦40,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+                <div class="product-card women belts" data-name="Women's Wrap Belt" data-price="53000">
+                    <img src="https://images.unsplash.com/photo-1599926182149-175622a1bd8b" alt="Women's Wrap Belt">
+                    <h3>Women's Wrap Belt</h3>
+                    <p>Wrap-around leather design.</p>
+                    <div class="stars">★★★★☆</div>
+                    <div class="price">₦53,000</div>
+                    <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add to Cart Modal -->
+    <div id="addToCartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalProductName">Please select a variation</h3>
+            <div class="price" id="modalProductPrice"></div>
+            <div class="size-options" id="modalSizeOptions"></div>
+            <div class="quantity">
+                <button onclick="updateQuantity(-1)">-</button>
+                <span id="quantity">1</span>
+                <button onclick="updateQuantity(1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>
+                        <img src="images/logo.png" alt="God Bless Shoes Logo">
+                        God Bless Shoes
+                    </h3>
+                    <p>Crafted with love since 2025. Authentic leather for every step.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Care Tips</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@godblessshoes.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                    <p>Address: 123 Leather Lane, Style City, SC 12345</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 God Bless Shoes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Persistent Cart - No clear on load
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let currentProduct = null;
+        let currentQuantity = 1;
+        let selectedSize = null;
+
+        // Realistic US size ranges based on category
+        function getSizes(productClass) {
+            if (productClass.includes('men') && (productClass.includes('shoes') || productClass.includes('halfshoes'))) {
+                return Array.from({length: 7}, (_, i) => (7 + i).toString()); // US Men's 7-13
+            } else if (productClass.includes('men') && productClass.includes('belts')) {
+                return Array.from({length: 8}, (_, i) => (30 + 2 * i).toString()); // 30-44 inches
+            } else if (productClass.includes('women') && productClass.includes('shoes')) {
+                return Array.from({length: 7}, (_, i) => (5 + i).toString()); // US Women's 5-11
+            } else if (productClass.includes('women') && productClass.includes('belts')) {
+                return Array.from({length: 7}, (_, i) => (26 + 2 * i).toString()); // 26-38 inches
+            }
+            return ['S', 'M', 'L', 'XL']; // Fallback
+        }
+
+        function addToCart(name, price, size, qty = 1) {
+            const key = name + ' - ' + size;
+            const existing = cart.find(item => item.key === key);
+            if (existing) {
+                existing.qty += qty;
+                showNotification(`Item quantity updated: ${name} (Size ${size})`);
+            } else {
+                cart.push({ name, price, size, qty, key });
+                showNotification(`Product added successfully: ${name} (Size ${size})`);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            const badge = document.getElementById('cart-count');
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'block' : 'none';
+        }
+
+        function toggleCartDropdown() {
+            const dropdown = document.getElementById('cart-dropdown');
+            dropdown.classList.toggle('open');
+            if (dropdown.classList.contains('open')) {
+                renderMiniCart();
+                document.body.style.overflow = 'hidden'; // Lock scroll
+            } else {
+                document.body.style.overflow = ''; // Unlock scroll
+            }
+        }
+
+        function closeCartDropdown() {
+            document.getElementById('cart-dropdown').classList.remove('open');
+            document.body.style.overflow = ''; // Unlock scroll
+        }
+
+        function renderMiniCart() {
+            const itemsDiv = document.getElementById('mini-cart-items');
+            const totalDiv = document.getElementById('mini-total');
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                html += `
+                    <div class="cart-item-mini">
+                        <div>
+                            <h4>${item.name} (${item.size})</h4>
+                            <p>₦${item.price.toLocaleString()} x ${item.qty} = ₦${subtotal.toLocaleString()}</p>
+                            <div class="qty-mini">
+                                <button onclick="updateQtyMini(${index}, -1); event.stopPropagation();">-</button>
+                                <span>${item.qty}</span>
+                                <button onclick="updateQtyMini(${index}, 1); event.stopPropagation();">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            itemsDiv.innerHTML = html;
+            totalDiv.textContent = `Total: ₦${total.toLocaleString()}`;
+            totalDiv.style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        function updateQtyMini(index, delta) {
+            if (cart[index]) {
+                const oldQty = cart[index].qty;
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    const name = cart[index].name;
+                    const size = cart[index].size;
+                    cart.splice(index, 1);
+                    showNotification(`Item removed: ${name} (Size ${size})`);
+                } else if (oldQty !== cart[index].qty) {
+                    showNotification(`Quantity updated for ${cart[index].name} (Size ${cart[index].size})`);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+                const dropdown = document.getElementById('cart-dropdown');
+                if (dropdown.classList.contains('open')) {
+                    renderMiniCart();
+                }
+            }
+        }
+
+        function toggleHamburger() {
+            event.stopPropagation();
+            const menu = document.querySelector('.nav-links');
+            menu.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // Lock scroll for menu
+            } else {
+                document.body.style.overflow = ''; // Unlock
+            }
+        }
+
+        function closeHamburger() {
+            const menu = document.querySelector('.nav-links');
+            menu.classList.remove('active');
+            document.body.style.overflow = ''; // Unlock
+        }
+
+        // Modal functions
+        function showAddToCartModal(btn) {
+            currentProduct = btn.closest('.product-card');
+            const name = currentProduct.dataset.name;
+            const price = currentProduct.dataset.price;
+            const productClass = currentProduct.className;
+            const sizes = getSizes(productClass);
+            const sizeOptions = document.getElementById('modalSizeOptions');
+            sizeOptions.innerHTML = '';
+            sizes.forEach(size => {
+                const btnEl = document.createElement('button');
+                btnEl.className = 'size-btn';
+                btnEl.textContent = size;
+                btnEl.onclick = (e) => {
+                    selectSize(e.target);
+                    // Auto-add on size click if selected
+                    setTimeout(() => { // Small delay for selection
+                        if (selectedSize) {
+                            const priceNum = parseInt(price.replace(/,/g, ''));
+                            addToCart(name, priceNum, selectedSize, currentQuantity);
+                            closeModal();
+                        }
+                    }, 100);
+                };
+                sizeOptions.appendChild(btnEl);
+            });
+            document.getElementById('modalProductName').textContent = name;
+            document.getElementById('modalProductPrice').textContent = `₦${price}`;
+            currentQuantity = 1;
+            selectedSize = null;
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('quantity').textContent = currentQuantity;
+            document.getElementById('addToCartModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('addToCartModal').style.display = 'none';
+        }
+
+        function selectSize(btn) {
+            document.querySelectorAll('#modalSizeOptions .size-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedSize = btn.textContent;
+        }
+
+        function updateQuantity(delta) {
+            currentQuantity = Math.max(1, currentQuantity + delta);
+            document.getElementById('quantity').textContent = currentQuantity;
+        }
+
+        function continueShopping() {
+            document.getElementById('notification').classList.remove('show');
+        }
+
+        // Notification
+        function showNotification(text) {
+            const notif = document.getElementById('notification');
+            const textEl = document.getElementById('notification-text');
+            textEl.textContent = text;
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 5000);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('addToCartModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Filter functions
+        function populateSubFilter() {
+            const mainFilter = document.getElementById('main-filter').value;
+            const subSelect = document.getElementById('sub-filter');
+            const subFiltersDiv = document.getElementById('sub-filters');
+            subSelect.innerHTML = '';
+            if (mainFilter === 'Men') {
+                const options = ['Shoes', 'Half Shoes', 'Belts'];
+                options.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat.toLowerCase().replace(' ', '');
+                    opt.textContent = cat;
+                    subSelect.appendChild(opt);
+                });
+                subFiltersDiv.style.display = 'block';
+            } else if (mainFilter === 'Women') {
+                const options = ['Shoes', 'Belts'];
+                options.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat.toLowerCase();
+                    opt.textContent = cat;
+                    subSelect.appendChild(opt);
+                });
+                subFiltersDiv.style.display = 'block';
+            } else {
+                subFiltersDiv.style.display = 'none';
+            }
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const mainFilter = document.getElementById('main-filter').value;
+            const subFilter = document.getElementById('sub-filter').value;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const classes = card.className;
+                const name = card.dataset.name.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                let show = true;
+
+                if (mainFilter !== 'All Products') {
+                    if (!classes.includes(mainFilter.toLowerCase())) show = false;
+                }
+                if (subFilter && show) {
+                    if (!classes.includes(subFilter)) show = false;
+                }
+                if (searchTerm && show) {
+                    if (!name.includes(searchTerm) && !desc.includes(searchTerm)) show = false;
+                }
+
+                card.classList.toggle('hidden', !show);
+            });
+        }
+
+        document.getElementById('main-filter').addEventListener('change', populateSubFilter);
+        document.getElementById('sub-filter').addEventListener('change', filterProducts);
+        document.getElementById('search-input').addEventListener('input', filterProducts);
+
+        // Close dropdown on outside click
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('cart-dropdown');
+            const icon = document.querySelector('.cart-icon');
+            if (!icon.contains(e.target) && !dropdown.contains(e.target)) {
+                closeCartDropdown();
+            }
+            // Close mobile menu on outside click
+            const menu = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+                closeHamburger();
+            }
+        });
+
+        // Init
+        updateCart();
+        populateSubFilter();
+    </script>
+</body>
+</html>

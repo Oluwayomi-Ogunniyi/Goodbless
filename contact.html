@@ -1,10 +1,10 @@
-<!-- index.html (Home Page with Embedded CSS and JS - Updated Mobile Responsiveness) -->
+<!-- contact.html (Live Map with Dummy Key & Forced Marker - Moriba Stop, Lagos-Ibadan Expressway) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GodBless Shoes - Home</title>
+    <title>God Bless Shoes - Contact</title>
     <style>
         /* Reset and Base */
         * {
@@ -258,59 +258,99 @@
             }
         }
 
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 80vh;
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+        }
+
+        .contact h1 {
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .contact-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            min-height: auto;
+        }
+
+        .contact-box:first-child {
+            min-height: 280px;
+        }
+
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: sans-serif;
+            flex: 1;
+        }
+
+        .contact-info-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-info-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            gap: 0.5rem;
+            font-size: 1.1rem;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.35);
-            z-index: 1;
+        .contact-info-item strong {
+            min-width: 80px;
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 600px;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: hsl(20, 33%, 98%);
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
+        .contact-info-item i {
+            color: #8B4513;
             font-size: 1.2rem;
-            color: hsl(20, 33%, 98%);
-            margin-bottom: 2rem;
+            width: 20px;
         }
 
-        .hero-img {
-            position: absolute;
-            top: 0;
-            left: 0;
+        #map {
+            height: 250px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            border-radius: 5px;
+            flex: 1;
+            margin-top: auto;
         }
 
         .cta-btn {
-            display: inline-block;
             background: #8B4513;
             color: white;
             padding: 0.8rem 2rem;
@@ -318,59 +358,14 @@
             border-radius: 5px;
             transition: background 0.3s;
             font-weight: 500;
+            border: none;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: auto;
         }
 
         .cta-btn:hover {
             background: #A0522D;
-        }
-
-        /* Teaser Section */
-        .teaser {
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .teaser h2 {
-            font-size: 2.5rem;
-            color: #8B4513;
-            margin-bottom: 2rem;
-        }
-
-        .teaser-grid {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .teaser-card {
-            flex: 1;
-            min-width: 200px;
-            max-width: 250px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .teaser-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .teaser-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .teaser-card h3 {
-            padding: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .teaser .cta-btn {
-            margin-top: 30px;
         }
 
         /* Footer */
@@ -559,27 +554,38 @@
                 display: none;
             }
 
-            .hero h1 {
-                font-size: 2rem;
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            .hero-content {
-                padding: 1rem;
+            .contact-box {
+                min-height: auto;
             }
 
-            .teaser-grid {
-                flex-wrap: wrap;
+            .contact-box:first-child {
+                min-height: auto;
             }
 
-            .teaser-card {
-                max-width: 150px;
-                min-width: 140px;
+            #map {
+                height: 200px;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
             }
+
+            .contact-form {
+                padding: 0 1rem;
+            }
+
+            .contact-info-item {
+                justify-content: flex-start;
+            }
         }
+
+        /* Font Awesome for Icons */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
     </style>
 </head>
 <body>
@@ -624,55 +630,49 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img src="https://images.unsplash.com/photo-1627631457335-d1041fd0cb8c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Elegant leather pump" class="hero-img">
-        <div class="hero-content">
-            <h1>Timeless Leather Elegance</h1>
-            <p>Crafted for the discerning step. Discover our premium collection of authentic leather shoes and belts for men and women.</p>
-            <a href="shop.html" class="cta-btn">Shop Now</a>
-        </div>
-    </section>
-
-    <!-- Featured Products Teaser -->
-    <section class="teaser">
+    <!-- Contact Section -->
+    <section class="contact">
         <div class="container">
-            <h2>Featured Collection</h2>
-            <div class="teaser-grid">
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1588433963378-82d7b8fc1552?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1lbnMlMjBsZWF0aGVyJTIwZHJlc3MlMjBzaG9lc3xlbnwwfHwwfHx8MA%3D%3D" alt="Men's Leather Shoes">
-                    <h3>Men's Shoes</h3>
+            <h1>Contact Us</h1>
+            <p>Get in touch for custom orders or inquiries.</p>
+            <div class="contact-content">
+                <div class="contact-box">
+                    <form class="contact-form">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="3" required></textarea>
+                        <button type="submit" class="cta-btn">Send Message</button>
+                    </form>
                 </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1726293428290-4fa588709cd7?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0" alt="Women's Leather Shoes">
-                    <h3>Women's Shoes</h3>
-                </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1572550907105-dc3c8e55f5b1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1lbnMlMjBsZWF0aGVyJTIwZHJlc3MlMjBzaG9lc3xlbnwwfHwwfHx8MA%3D%3D" alt="Men's Half Shoes">
-                    <h3>Men's Half Shoes</h3>
-                </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1750032627171-6af2b5765b98?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0" alt="Women's Half Shoes">
-                    <h3>Women's Half Shoes</h3>
-                </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1614732145188-bb8b5e12968c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG1lbnMlMjBsZWF0aGVyJTIwZHJlc3MlMjBzaG9lc3xlbnwwfHwwfHx8MA%3D%3D" alt="Men's Leather Pumps">
-                    <h3>Men's Leather Pumps</h3>
-                </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1711113456756-40a80c23491c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0" alt="Women's Leather Pumps">
-                    <h3>Women's Leather Pumps</h3>
-                </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1684510334550-0c4fa8aaffd1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0" alt="Men's Leather Belt">
-                    <h3>Men's Leather Belt</h3>
-                </div>
-                <div class="teaser-card">
-                    <img src="https://images.unsplash.com/photo-1752386296085-fd15d8b46ee7?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0" alt="Women's Leather Belt">
-                    <h3>Women's Leather Belt</h3>
+                <div class="contact-box">
+                    <div class="contact-info-box">
+                        <div class="contact-info">
+                            <div class="contact-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong>Email:</strong>
+                                    <span>info@godblessshoes.com</span>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong>Phone:</strong>
+                                    <span>+1 (555) 123-4567</span>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Address:</strong>
+                                    <span>Moriba Stop, Lagos-Ibadan Expressway, Nigeria</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="map"></div>
+                    </div>
                 </div>
             </div>
-            <a href="shop.html" class="cta-btn">View Full Collection</a>
         </div>
     </section>
 
@@ -701,7 +701,7 @@
                     <h3>Contact Us</h3>
                     <p>Email: info@godblessshoes.com</p>
                     <p>Phone: +1 (555) 123-4567</p>
-                    <p>Address: 123 Leather Lane, Style City, SC 12345</p>
+                    <p>Address: Moriba Stop, Lagos-Ibadan Expressway, Nigeria</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -710,26 +710,28 @@
         </div>
     </footer>
 
+    <!-- Google Maps Script - With Dummy API Key for Testing -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD123fakeKEYfOrAraTesting&callback=initMap"></script>
+
     <script>
+        // Initialize Google Map - Forced with hardcoded location for Moriba Stop
+        function initMap() {
+            // Hardcoded coordinates for Moriba Stop area on Lagos-Ibadan Expressway (approx. Mowe region)
+            const location = { lat: 6.811, lng: 3.437 };
+            const address = 'Moriba Stop, Lagos-Ibadan Expressway, Nigeria';
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: location,
+            });
+            new google.maps.Marker({
+                position: location,
+                map: map,
+                title: 'God Bless Shoes - ' + address,
+            });
+        }
+
         // Persistent Cart - Load from localStorage without clearing
         let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-        function addToCart(name, price, size) {
-            if (!size) {
-                alert('Please select a size/length before adding to cart.');
-                return;
-            }
-            const key = name + ' - ' + size;
-            const existing = cart.find(item => item.key === key);
-            if (existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ name, price, size, qty: 1, key });
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCart();
-            alert(`${name} (Size: ${size}) added to cart!`);
-        }
 
         function updateCart() {
             cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -737,7 +739,6 @@
             const badge = document.getElementById('cart-count');
             badge.textContent = count;
             badge.style.display = count > 0 ? 'block' : 'none';
-            // Order Now button always active and same color, no disabled state
         }
 
         function toggleCartDropdown() {
@@ -840,6 +841,12 @@
                 const term = this.value.trim().toLowerCase();
                 if(term) window.location = 'shop.html?search=' + encodeURIComponent(term);
             }
+        });
+
+        // Basic form submission (logs for now; add backend later)
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent! (Demo)');
         });
     </script>
 </body>

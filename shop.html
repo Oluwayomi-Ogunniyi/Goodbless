@@ -1,10 +1,9 @@
-<!-- shop.html (Shop Page with Embedded CSS and JS - Integrated Updates: Aligned Buttons, Search Bar, Persistent Cart, Modal Auto-Add on Size Click, Realistic US Sizes, Top Notification Bar for Adds/Updates) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God Bless Shoes - Shop</title>
+    <title>Godbless Vikky - Shop</title>
     <style>
         /* Reset and Base */
         * {
@@ -112,8 +111,8 @@
         }
 
         .logo img {
-            width: 30px;
-            height: 30px;
+            width: 60px;
+            height: 60px;
         }
 
         .search-input {
@@ -594,19 +593,19 @@
         @media (max-width: 768px) {
             .nav {
                 position: relative;
-                padding: 0 1rem; /* Reduced padding for more space */
+                padding: 0 1rem;
             }
 
             .logo {
-                font-size: 1.2rem; /* Adjusted smaller for better fit and space */
+                font-size: 1.2rem;
                 flex-shrink: 0;
                 z-index: 102;
                 order: 1;
             }
 
             .logo img {
-                width: 25px;
-                height: 25px;
+                width: 50px;
+                height: 50px;
             }
 
             .search-input {
@@ -616,7 +615,7 @@
                 max-width: none;
                 margin-top: 0.5rem;
                 margin-bottom: 0.5rem;
-                padding: 0.4rem 0.8rem; /* Smaller padding */
+                padding: 0.4rem 0.8rem;
                 font-size: 0.9rem;
             }
 
@@ -624,17 +623,17 @@
                 position: fixed;
                 top: 0;
                 left: 0;
-                width: 50%; /* Increased to 50% */
-                height: 100vh; /* Full height for white background to bottom */
+                width: 50%;
+                height: 100vh;
                 background: white;
                 flex-direction: column;
-                padding: 4rem 1.5rem 2rem; /* Adjusted for close button space */
+                padding: 4rem 1.5rem 2rem;
                 box-shadow: 2px 0 15px rgba(0,0,0,0.1);
                 transform: translateX(-100%);
                 transition: transform 0.3s ease-in-out;
                 gap: 0;
-                overflow: hidden; /* No overflow on container, handled by content wrapper */
-                z-index: 999; /* High z-index for full overlay */
+                overflow: hidden;
+                z-index: 999;
                 display: flex;
                 list-style: none;
             }
@@ -650,14 +649,14 @@
             .menu-content {
                 margin-top: 2rem;
                 flex: 1;
-                max-height: 60vh; /* Content limited to 60% from top */
+                max-height: 60vh;
                 overflow-y: auto;
-                list-style: none; /* Ensure no dots */
+                list-style: none;
             }
 
             .nav-links li {
                 padding: 0.5rem 0;
-                list-style: none; /* No dots */
+                list-style: none;
             }
 
             .nav-links li a {
@@ -674,13 +673,13 @@
             }
 
             .order-now-mobile a {
-                padding: 0.8rem 1rem; /* Retained rectangular padding without shrinking */
+                padding: 0.8rem 1rem;
             }
 
             .nav-right {
                 display: flex;
                 align-items: center;
-                gap: 0.5rem; /* Smaller gap for tight fit */
+                gap: 0.5rem;
                 z-index: 102;
                 margin-left: auto;
                 order: 3;
@@ -700,10 +699,9 @@
                 font-size: 1.3rem;
             }
 
-            /* Cart dropdown full-width in mobile to prevent hidden parts - Enhanced fix */
             .cart-dropdown {
                 position: fixed !important;
-                top: 70px !important; /* Below header */
+                top: 70px !important;
                 left: 0 !important;
                 right: 0 !important;
                 width: calc(100% - 2rem) !important;
@@ -714,7 +712,6 @@
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
             }
 
-            /* Overlay: Hide cart and hamburger when menu active */
             .nav-links.active ~ .nav-right {
                 display: none;
             }
@@ -748,6 +745,42 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            /* Mobile Product Card - Height reduced further (~30% more compact) */
+            .product-card {
+                padding: 0.4rem;
+            }
+
+            .product-card img {
+                height: 85px;
+                object-fit: cover;
+            }
+
+            .product-card h3 {
+                font-size: 0.95rem;
+                margin: 0.3rem 0;
+            }
+
+            .product-card p {
+                font-size: 0.75rem;
+                margin-bottom: 0.3rem;
+                line-height: 1.3;
+            }
+
+            .stars {
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .price {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .add-to-cart {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -767,8 +800,8 @@
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <img src="images/logo.png" alt="God Bless Shoes Logo">
-                Godbless Shoes
+                <img src="images/logo.jpg" alt="Godbless Vikky Logo">
+                Godbless Vikky
             </div>
             <input type="search" id="search-input" class="search-input" placeholder="Search products...">
             <div class="nav-links">
@@ -995,7 +1028,7 @@
                     <button class="add-to-cart" onclick="showAddToCartModal(this)">Add to Cart</button>
                 </div>
                 <div class="product-card men belts" data-name="Men's Reversible Belt" data-price="42000">
-                    <img src="https://images.unsplash.com/photo-1664286022075-8e997e95bd17" alt="Men's Reversible Belt">
+                    <img src="https://images.unsplash.com/photo-1664286022075-8a68b3b32633c95820" alt="Men's Reversible Belt">
                     <h3>Men's Reversible Belt</h3>
                     <p>Two-tone reversible leather belt.</p>
                     <div class="stars">★★★★☆</div>
@@ -1223,8 +1256,8 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>
-                        <img src="images/logo.png" alt="God Bless Shoes Logo">
-                        God Bless Shoes
+                        <img src="images/logo.jpg" alt="Godbless Vikky Logo">
+                        Godbless Vikky
                     </h3>
                     <p>Crafted with love since 2025. Authentic leather for every step.</p>
                 </div>
@@ -1235,14 +1268,14 @@
                         <li><a href="shop.html">Shop</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                        <li><a href="#">Care Tips</a></li>
+                        
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p>Email: info@godblessshoes.com</p>
-                    <p>Phone: +1 (555) 123-4567</p>
-                    <p>Address: 123 Leather Lane, Style City, SC 12345</p>
+                    <p>Email: theqlipdigital@gmail.com</p>
+                    <p>Phone: 07087342882</p>
+                    <p>Address: The Qlip House, Lagos-Ibadan Expressway, Nigeria</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1250,6 +1283,283 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Persistent Cart - No clear on load
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let currentProduct = null;
+        let currentQuantity = 1;
+        let selectedSize = null;
+
+        // Realistic US size ranges based on category
+        function getSizes(productClass) {
+            if (productClass.includes('men') && (productClass.includes('shoes') || productClass.includes('halfshoes'))) {
+                return Array.from({length: 7}, (_, i) => (7 + i).toString()); // US Men's 7-13
+            } else if (productClass.includes('men') && productClass.includes('belts')) {
+                return Array.from({length: 8}, (_, i) => (30 + 2 * i).toString()); // 30-44 inches
+            } else if (productClass.includes('women') && productClass.includes('shoes')) {
+                return Array.from({length: 7}, (_, i) => (5 + i).toString()); // US Women's 5-11
+            } else if (productClass.includes('women') && productClass.includes('belts')) {
+                return Array.from({length: 7}, (_, i) => (26 + 2 * i).toString()); // 26-38 inches
+            }
+            return ['S', 'M', 'L', 'XL']; // Fallback
+        }
+
+        function addToCart(name, price, size, qty = 1) {
+            const key = name + ' - ' + size;
+            const existing = cart.find(item => item.key === key);
+            if (existing) {
+                existing.qty += qty;
+                showNotification(`Item quantity updated: ${name} (Size ${size})`);
+            } else {
+                cart.push({ name, price, size, qty, key });
+                showNotification(`Product added successfully: ${name} (Size ${size})`);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            const badge = document.getElementById('cart-count');
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'block' : 'none';
+        }
+
+        function toggleCartDropdown() {
+            const dropdown = document.getElementById('cart-dropdown');
+            dropdown.classList.toggle('open');
+            if (dropdown.classList.contains('open')) {
+                renderMiniCart();
+                document.body.style.overflow = 'hidden'; // Lock scroll
+            } else {
+                document.body.style.overflow = ''; // Unlock scroll
+            }
+        }
+
+        function closeCartDropdown() {
+            document.getElementById('cart-dropdown').classList.remove('open');
+            document.body.style.overflow = ''; // Unlock scroll
+        }
+
+        function renderMiniCart() {
+            const itemsDiv = document.getElementById('mini-cart-items');
+            const totalDiv = document.getElementById('mini-total');
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                html += `
+                    <div class="cart-item-mini">
+                        <div>
+                            <h4>${item.name} (${item.size})</h4>
+                            <p>₦${item.price.toLocaleString()} x ${item.qty} = ₦${subtotal.toLocaleString()}</p>
+                            <div class="qty-mini">
+                                <button onclick="updateQtyMini(${index}, -1); event.stopPropagation();">-</button>
+                                <span>${item.qty}</span>
+                                <button onclick="updateQtyMini(${index}, 1); event.stopPropagation();">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            itemsDiv.innerHTML = html;
+            totalDiv.textContent = `Total: ₦${total.toLocaleString()}`;
+            totalDiv.style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        function updateQtyMini(index, delta) {
+            if (cart[index]) {
+                const oldQty = cart[index].qty;
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    const name = cart[index].name;
+                    const size = cart[index].size;
+                    cart.splice(index, 1);
+                    showNotification(`Item removed: ${name} (Size ${size})`);
+                } else if (oldQty !== cart[index].qty) {
+                    showNotification(`Quantity updated for ${cart[index].name} (Size ${cart[index].size})`);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+                const dropdown = document.getElementById('cart-dropdown');
+                if (dropdown.classList.contains('open')) {
+                    renderMiniCart();
+                }
+            }
+        }
+
+        function toggleHamburger() {
+            event.stopPropagation();
+            const menu = document.querySelector('.nav-links');
+            menu.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // Lock scroll for menu
+            } else {
+                document.body.style.overflow = ''; // Unlock
+            }
+        }
+
+        function closeHamburger() {
+            const menu = document.querySelector('.nav-links');
+            menu.classList.remove('active');
+            document.body.style.overflow = ''; // Unlock
+        }
+
+        // Modal functions
+        function showAddToCartModal(btn) {
+            currentProduct = btn.closest('.product-card');
+            const name = currentProduct.dataset.name;
+            const price = currentProduct.dataset.price;
+            const productClass = currentProduct.className;
+            const sizes = getSizes(productClass);
+            const sizeOptions = document.getElementById('modalSizeOptions');
+            sizeOptions.innerHTML = '';
+            sizes.forEach(size => {
+                const btnEl = document.createElement('button');
+                btnEl.className = 'size-btn';
+                btnEl.textContent = size;
+                btnEl.onclick = (e) => {
+                    selectSize(e.target);
+                    // Auto-add on size click if selected
+                    setTimeout(() => { // Small delay for selection
+                        if (selectedSize) {
+                            const priceNum = parseInt(price.replace(/,/g, ''));
+                            addToCart(name, priceNum, selectedSize, currentQuantity);
+                            closeModal();
+                        }
+                    }, 100);
+                };
+                sizeOptions.appendChild(btnEl);
+            });
+            document.getElementById('modalProductName').textContent = name;
+            document.getElementById('modalProductPrice').textContent = `₦${price}`;
+            currentQuantity = 1;
+            selectedSize = null;
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('quantity').textContent = currentQuantity;
+            document.getElementById('addToCartModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('addToCartModal').style.display = 'none';
+        }
+
+        function selectSize(btn) {
+            document.querySelectorAll('#modalSizeOptions .size-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedSize = btn.textContent;
+        }
+
+        function updateQuantity(delta) {
+            currentQuantity = Math.max(1, currentQuantity + delta);
+            document.getElementById('quantity').textContent = currentQuantity;
+        }
+
+        function continueShopping() {
+            document.getElementById('notification').classList.remove('show');
+        }
+
+        // Notification
+        function showNotification(text) {
+            const notif = document.getElementById('notification');
+            const textEl = document.getElementById('notification-text');
+            textEl.textContent = text;
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 5000);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('addToCartModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Filter functions
+        function populateSubFilter() {
+            const mainFilter = document.getElementById('main-filter').value;
+            const subSelect = document.getElementById('sub-filter');
+            const subFiltersDiv = document.getElementById('sub-filters');
+            subSelect.innerHTML = '';
+            if (mainFilter === 'Men') {
+                const options = ['Shoes', 'Half Shoes', 'Belts'];
+                options.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat.toLowerCase().replace(' ', '');
+                    opt.textContent = cat;
+                    subSelect.appendChild(opt);
+                });
+                subFiltersDiv.style.display = 'block';
+            } else if (mainFilter === 'Women') {
+                const options = ['Shoes', 'Belts'];
+                options.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat.toLowerCase();
+                    opt.textContent = cat;
+                    subSelect.appendChild(opt);
+                });
+                subFiltersDiv.style.display = 'block';
+            } else {
+                subFiltersDiv.style.display = 'none';
+            }
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const mainFilter = document.getElementById('main-filter').value;
+            const subFilter = document.getElementById('sub-filter').value;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const classes = card.className;
+                const name = card.dataset.name.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                let show = true;
+
+                if (mainFilter !== 'All Products') {
+                    if (!classes.includes(mainFilter.toLowerCase())) show = false;
+                }
+                if (subFilter && show) {
+                    if (!classes.includes(subFilter)) show = false;
+                }
+                if (searchTerm && show) {
+                    if (!name.includes(searchTerm) && !desc.includes(searchTerm)) show = false;
+                }
+
+                card.classList.toggle('hidden', !show);
+            });
+        }
+
+        document.getElementById('main-filter').addEventListener('change', populateSubFilter);
+        document.getElementById('sub-filter').addEventListener('change', filterProducts);
+        document.getElementById('search-input').addEventListener('input', filterProducts);
+
+        // Close dropdown on outside click
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('cart-dropdown');
+            const icon = document.querySelector('.cart-icon');
+            if (!icon.contains(e.target) && !dropdown.contains(e.target)) {
+                closeCartDropdown();
+            }
+            // Close mobile menu on outside click
+            const menu = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+                closeHamburger();
+            }
+        });
+
+        // Init
+        updateCart();
+        populateSubFilter();
+    </script>
+</body>
+</html>
 
     <script>
         // Persistent Cart - No clear on load

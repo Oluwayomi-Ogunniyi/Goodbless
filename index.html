@@ -25,13 +25,13 @@
             padding: 0 2rem;
         }
 
-        /* Header/Nav */
+        /* Header/Nav - Consistent reduced height */
         .header {
             position: sticky;
             top: 0;
             background: rgba(255, 255, 255, 0.95);
             z-index: 100;
-            padding: 1rem 0;
+            padding: 0.5rem 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -172,10 +172,22 @@
 
         .cart-item-mini {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 1rem;
             padding: 1rem;
             border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-mini img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .cart-item-mini > div {
+            flex: 1;
         }
 
         .cart-item-mini h4 {
@@ -192,6 +204,7 @@
             display: flex;
             align-items: center;
             gap: 0.3rem;
+            margin-top: 0.5rem;
         }
 
         .qty-mini button {
@@ -219,9 +232,24 @@
             border-radius: 5px;
             font-weight: 500;
             transition: background 0.3s;
+            display: block;
+            text-align: center;
+            margin: 1rem;
         }
 
-        .cta-header:hover {
+        .cta-btn {
+            background: #8B4513;
+            color: white;
+            padding: 0.6rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        
+
+        .cta-header:hover, .cta-btn:hover {
             background: #A0522D;
         }
 
@@ -245,7 +273,6 @@
             z-index: 102;
         }
 
-        /* Desktop-specific nav links horizontal styling */
         @media (min-width: 769px) {
             .menu-content ul {
                 display: flex;
@@ -274,29 +301,29 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.45);
             z-index: 1;
         }
 
         .hero-content {
             text-align: center;
             z-index: 2;
-            max-width: 600px;
+            max-width: 700px;
             padding: 2rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            color: hsl(20, 33%, 98%);
+            font-size: 3.2rem;
+            color: white;
             margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         .hero p {
-            font-size: 1.2rem;
-            color: hsl(20, 33%, 98%);
+            font-size: 1.3rem;
+            color: white;
             margin-bottom: 2rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
         .hero-img {
@@ -308,25 +335,11 @@
             object-fit: cover;
         }
 
-        .cta-btn {
-            display: inline-block;
-            background: #8B4513;
-            color: white;
-            padding: 0.8rem 2rem;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-            font-weight: 500;
-        }
-
-        .cta-btn:hover {
-            background: #A0522D;
-        }
-
         /* Teaser Section */
         .teaser {
-            padding: 3rem 0;
+            padding: 4rem 0;
             text-align: center;
+            background: white;
         }
 
         .teaser h2 {
@@ -336,25 +349,24 @@
         }
 
         .teaser-grid {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            justify-items: center;
         }
 
         .teaser-card {
-            flex: 1;
-            min-width: 200px;
-            max-width: 250px;
             background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            width: 100%;
+            max-width: 280px;
         }
 
         .teaser-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
         }
 
         .teaser-card img {
@@ -365,11 +377,14 @@
 
         .teaser-card h3 {
             padding: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            color: #333;
         }
 
         .teaser .cta-btn {
-            margin-top: 30px;
+            margin-top: 3rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
         }
 
         /* Footer */
@@ -429,15 +444,19 @@
             color: #ccc;
         }
 
-        /* Mobile - Only adjustments here, desktop/tablet unchanged */
+        /* Mobile Adjustments - FULLY CONSISTENT WITH OTHER PAGES */
         @media (max-width: 768px) {
+            .header {
+                padding: 0.5rem 0;
+    }
+
             .nav {
                 position: relative;
-                padding: 0 1rem; /* Reduced padding for more space */
+                padding: 0 1rem;
             }
 
             .logo {
-                font-size: 1.2rem; /* Adjusted smaller for better fit and space */
+                font-size: 1.2rem;
                 flex-shrink: 0;
                 z-index: 102;
                 order: 1;
@@ -455,7 +474,7 @@
                 max-width: none;
                 margin-top: 0.5rem;
                 margin-bottom: 0.5rem;
-                padding: 0.4rem 0.8rem; /* Smaller padding */
+                padding: 0.4rem 0.8rem;
                 font-size: 0.9rem;
             }
 
@@ -463,17 +482,17 @@
                 position: fixed;
                 top: 0;
                 left: 0;
-                width: 50%; /* Increased to 50% */
-                height: 100vh; /* Full height for white background to bottom */
+                width: 50%;
+                height: 100vh;
                 background: white;
                 flex-direction: column;
-                padding: 4rem 1.5rem 2rem; /* Adjusted for close button space */
+                padding: 4rem 1.5rem 2rem;
                 box-shadow: 2px 0 15px rgba(0,0,0,0.1);
                 transform: translateX(-100%);
                 transition: transform 0.3s ease-in-out;
                 gap: 0;
-                overflow: hidden; /* No overflow on container, handled by content wrapper */
-                z-index: 999; /* High z-index for full overlay */
+                overflow: hidden;
+                z-index: 999;
                 display: flex;
                 list-style: none;
             }
@@ -489,14 +508,14 @@
             .menu-content {
                 margin-top: 2rem;
                 flex: 1;
-                max-height: 60vh; /* Content limited to 60% from top */
+                max-height: 60vh;
                 overflow-y: auto;
-                list-style: none; /* Ensure no dots */
+                list-style: none;
             }
 
             .nav-links li {
                 padding: 0.5rem 0;
-                list-style: none; /* No dots */
+                list-style: none;
             }
 
             .nav-links li a {
@@ -513,13 +532,13 @@
             }
 
             .order-now-mobile a {
-                padding: 0.8rem 1rem; /* Retained rectangular padding without shrinking */
+                padding: 0.8rem 1rem;
             }
 
             .nav-right {
                 display: flex;
                 align-items: center;
-                gap: 0.5rem; /* Smaller gap for tight fit */
+                gap: 0.5rem;
                 z-index: 102;
                 margin-left: auto;
                 order: 3;
@@ -539,10 +558,9 @@
                 font-size: 1.3rem;
             }
 
-            /* Cart dropdown full-width in mobile to prevent hidden parts - Enhanced fix */
             .cart-dropdown {
                 position: fixed !important;
-                top: 70px !important; /* Below header */
+                top: 70px !important;
                 left: 0 !important;
                 right: 0 !important;
                 width: calc(100% - 2rem) !important;
@@ -553,26 +571,48 @@
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
             }
 
-            /* Overlay: Hide cart and hamburger when menu active */
-            .nav-links.active ~ .nav-right {
-                display: none;
+            .hero {
+                height: 70vh;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
             }
 
             .hero-content {
-                padding: 1rem;
+                padding: 1.5rem;
+            }
+
+            .teaser h2 {
+                font-size: 2rem;
             }
 
             .teaser-grid {
-                flex-wrap: wrap;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
 
             .teaser-card {
-                max-width: 150px;
-                min-width: 140px;
+                max-width: none;
+            }
+
+            .teaser-card img {
+                height: 140px;
+            }
+
+            .teaser-card h3 {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+
+            .teaser .cta-btn {
+                margin-top: 2rem;
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
             }
 
             .footer-content {
@@ -613,8 +653,8 @@
                             <button class="dropdown-close" onclick="closeCartDropdown()">&times;</button>
                         </div>
                         <div id="mini-cart-items"></div>
-                        <div id="mini-total" class="mini-total" style="display:none;">Total: $0.00</div>
-                        <a href="cart.html" class="cta-btn" style="display:block; text-align:center; margin:1rem;">View Full Cart</a>
+                        <div id="mini-total" class="mini-total" style="display:none;">Total: ₦0</div>
+                        <a href="cart.html" class="cta-header">View Full Cart</a>
                     </div>
                 </div>
                 <a href="cart.html" id="order-now" class="cta-header">Order Now</a>
@@ -693,7 +733,6 @@
                         <li><a href="shop.html">Shop</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                    
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -710,33 +749,13 @@
     </footer>
 
     <script>
-        // Persistent Cart - Load from localStorage without clearing
         let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
-        function addToCart(name, price, size) {
-            if (!size) {
-                alert('Please select a size/length before adding to cart.');
-                return;
-            }
-            const key = name + ' - ' + size;
-            const existing = cart.find(item => item.key === key);
-            if (existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ name, price, size, qty: 1, key });
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCart();
-            alert(`${name} (Size: ${size}) added to cart!`);
-        }
-
         function updateCart() {
-            cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const count = cart.reduce((sum, item) => sum + item.qty, 0);
             const badge = document.getElementById('cart-count');
             badge.textContent = count;
             badge.style.display = count > 0 ? 'block' : 'none';
-            // Order Now button always active and same color, no disabled state
         }
 
         function toggleCartDropdown() {
@@ -744,15 +763,15 @@
             dropdown.classList.toggle('open');
             if (dropdown.classList.contains('open')) {
                 renderMiniCart();
-                document.body.style.overflow = 'hidden'; // Lock scroll
+                document.body.style.overflow = 'hidden';
             } else {
-                document.body.style.overflow = ''; // Unlock scroll
+                document.body.style.overflow = '';
             }
         }
 
         function closeCartDropdown() {
             document.getElementById('cart-dropdown').classList.remove('open');
-            document.body.style.overflow = ''; // Unlock scroll
+            document.body.style.overflow = '';
         }
 
         function renderMiniCart() {
@@ -760,25 +779,30 @@
             const totalDiv = document.getElementById('mini-total');
             let html = '';
             let total = 0;
-            cart.forEach((item, index) => {
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-                html += `
-                    <div class="cart-item-mini">
-                        <div>
-                            <h4>${item.name} (${item.size})</h4>
-                            <p>$${item.price} x ${item.qty} = $${subtotal.toFixed(2)}</p>
-                            <div class="qty-mini">
-                                <button onclick="updateQtyMini(${index}, -1); event.stopPropagation();">-</button>
-                                <span>${item.qty}</span>
-                                <button onclick="updateQtyMini(${index}, 1); event.stopPropagation();">+</button>
+            if (cart.length === 0) {
+                html = '<p style="padding:1rem; text-align:center; color:#999;">Your cart is empty</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const subtotal = item.price * item.qty;
+                    total += subtotal;
+                    html += `
+                        <div class="cart-item-mini">
+                            <img src="${item.img || 'images/placeholder.jpg'}" alt="${item.name}">
+                            <div>
+                                <h4>${item.name} (${item.size || 'No size'})</h4>
+                                <p>₦${item.price.toLocaleString()} x ${item.qty} = ₦${subtotal.toLocaleString()}</p>
+                                <div class="qty-mini">
+                                    <button onclick="updateQtyMini(${index}, -1); event.stopPropagation();">-</button>
+                                    <span>${item.qty}</span>
+                                    <button onclick="updateQtyMini(${index}, 1); event.stopPropagation();">+</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
             itemsDiv.innerHTML = html;
-            totalDiv.textContent = `Total: $${total.toFixed(2)}`;
+            totalDiv.textContent = `Total: ₦${total.toLocaleString()}`;
             totalDiv.style.display = cart.length > 0 ? 'block' : 'none';
         }
 
@@ -790,9 +814,7 @@
                 }
                 localStorage.setItem('cart', JSON.stringify(cart));
                 updateCart();
-                // Re-render only if dropdown is open, without closing it
-                const dropdown = document.getElementById('cart-dropdown');
-                if (dropdown.classList.contains('open')) {
+                if (document.getElementById('cart-dropdown').classList.contains('open')) {
                     renderMiniCart();
                 }
             }
@@ -802,27 +824,20 @@
             event.stopPropagation();
             const menu = document.querySelector('.nav-links');
             menu.classList.toggle('active');
-            if (menu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden'; // Lock scroll for menu
-            } else {
-                document.body.style.overflow = ''; // Unlock
-            }
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
         }
 
         function closeHamburger() {
-            const menu = document.querySelector('.nav-links');
-            menu.classList.remove('active');
-            document.body.style.overflow = ''; // Unlock
+            document.querySelector('.nav-links').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        // Close dropdown on outside click
         document.addEventListener('click', function(e) {
             const dropdown = document.getElementById('cart-dropdown');
             const icon = document.querySelector('.cart-icon');
             if (!icon.contains(e.target) && !dropdown.contains(e.target)) {
                 closeCartDropdown();
             }
-            // Close mobile menu on outside click
             const menu = document.querySelector('.nav-links');
             const hamburger = document.querySelector('.hamburger');
             if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
@@ -830,16 +845,15 @@
             }
         });
 
-        // Init
-        updateCart();
-
-        // Search functionality: Redirect to shop.html on Enter key press
         document.getElementById('search-input').addEventListener('keypress', function(e){
             if(e.key === 'Enter'){
-                const term = this.value.trim().toLowerCase();
+                const term = this.value.trim();
                 if(term) window.location = 'shop.html?search=' + encodeURIComponent(term);
             }
         });
+
+        // Init
+        updateCart();
     </script>
 </body>
 </html>

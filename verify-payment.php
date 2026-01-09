@@ -16,7 +16,7 @@ $signature = $_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] ?? '';
 
 // Replace with your actual Paystack SECRET KEY
 // Get it from Paystack Dashboard > Settings > API Keys & Webhooks
-$secret_key = 'sk_test_66e489212b182c1d3776e08854a5f622017ebad7';  // CHANGE THIS!
+$secret_key = 'sk_test_66e489212b182c1d3776e08854a5f622017';  // CHANGE THIS!
 
 // Verify the signature
 $computed_hash = hash_hmac('sha512', $input, $secret_key);
